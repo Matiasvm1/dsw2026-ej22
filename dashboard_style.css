@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: 
+  grid-template-areas:
     "header"
     "main"
     "footer";
@@ -13,9 +13,12 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 200px;
-  background-color: #f4f4f4;
-  left: -200px;
+  width: 220px;
+  background-color: #ffffff;
+  left: -220px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s ease;
+  z-index: 10;
 }
 
 .dashboard-container nav ul {
@@ -25,45 +28,135 @@
 }
 
 .dashboard-container nav ul li {
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-container nav ul li a {
+  display: block;
+  padding: 1rem 1.25rem;
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+.dashboard-container nav ul li a:hover {
+  background-color: #f3f4f6;
 }
 
 .dashboard-container header {
   grid-area: header;
-  height: 50px;
-  background-color: #333;
+  height: 56px;
+  background-color: #1f2937;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 0 1.25rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container header div {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.dashboard-container header .menu {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.dashboard-container header .menu:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dashboard-container header #logout {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dashboard-container header #logout:hover {
+  background-color: #dc2626;
 }
 
 .dashboard-container main {
   grid-area: main;
-  padding: 1rem;
+  padding: 1.5rem;
   overflow-y: auto;
+}
+
+.dashboard-container main h1 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.dashboard-container main table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+}
+
+.dashboard-container main thead {
+  background-color: #f9fafb;
+}
+
+.dashboard-container main th,
+.dashboard-container main td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-container main th {
+  font-weight: 600;
+  color: #374151;
+}
+
+.dashboard-container main tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dashboard-container main tbody tr:hover {
+  background-color: #f9fafb;
 }
 
 .dashboard-container footer {
   grid-area: footer;
-  background-color: #333;
-  color: white;
+  background-color: #1f2937;
+  color: #d1d5db;
   text-align: center;
-  padding: 1rem;
+  padding: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.dashboard-container nav.open {
+  left: 0;
 }
 
 @media screen and (min-width: 600px) {
   .dashboard-container {
-    grid-template-columns: 200px 1fr;
-    grid-template-areas: 
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
       "header header"
       "nav main"
       "footer footer";
@@ -74,6 +167,8 @@
     position: static;
     left: 0;
     height: auto;
+    box-shadow: inset -1px 0 0 #e5e7eb;
+    transition: none;
   }
 
   .dashboard-container header div .menu {

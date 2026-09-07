@@ -2,6 +2,9 @@ body {
   margin: 0;
   font-size: 2rem;
   height: 100dvh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1f2937;
+  background-color: #f3f4f6;
 }
 
 @media screen and (min-width: 600px) {

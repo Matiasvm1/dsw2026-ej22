@@ -80,3 +80,20 @@
     display: none;
   }
 }
+#sidebar {
+    display: none;
+}
+
+    #sidebar.open {
+        display: block;
+    }
+
+@media (min-width: 768px) {
+    #menu-btn {
+        display: none; 
+    }
+
+    #sidebar {
+        display: block !important; 
+    }
+}

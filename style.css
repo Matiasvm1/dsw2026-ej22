@@ -1,11 +1,86 @@
-body {
-  margin: 0;
-  font-size: 2rem;
-  height: 100dvh;
+:root {
+    --color-bg:            #F5F9FD;
+  --color-surface:       #FFFFFF;
+  --color-surface-alt:   #E6F4FC;   /* encabezado de tabla, pies */
+  --color-brand:         #0F4C81;   /* botones, links            */
+  --color-brand-dark:    #0B2D55;   /* títulos                   */
+  --color-brand-deep:    #0B3563;   /* fondo del login           */
+  --color-brand-soft:    #DDF0FB;   /* iconos en caja, chips     */
+  --color-accent:        #0E9384;   /* ítem activo del menú      */
+
+  --color-text:          #0F1B2D;
+  --color-text-soft:     #2B3A4C;
+  --color-text-muted:    #6B7A8C;
+  --color-text-invert:   #FFFFFF;
+
+  --color-border:        #D5E1EE;
+  --color-border-strong: #C5D1DE;
+
+  --color-ok:    #0B6B4F;  --color-ok-bg:    #E3F8F0;
+  --color-bad:   #B91C1C;  --color-bad-bg:   #FEE2E2;
+  --color-muted: #475569;  --color-muted-bg: #E8EEF5;
+
+  /* Tipografía */
+  --fuente: "Public Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --texto-xs: 0.75rem;   /* 12px */
+  --texto-sm: 0.875rem;  /* 14px */
+  --texto-md: 1rem;      /* 16px */
+  --texto-lg: 1.25rem;   /* 20px */
+  --texto-xl: 2rem;      /* 32px */
+  --texto-2xl: 2.5rem;   /* 40px */
+
+  /* Espaciado (escala de 4) */
+  --esp-1: 0.25rem; --esp-2: 0.5rem; --esp-3: 0.75rem;
+  --esp-4: 1rem;    --esp-5: 1.5rem; --esp-6: 2rem; --esp-7: 2.5rem;
+
+  /* Formas */
+  --radio-sm: 4px;
+  --radio-md: 6px;     /* botones y campos, como el mockup */
+  --radio-lg: 10px;    /* tarjetas */
+  --radio-full: 999px;
+  --sombra-card:  0 1px 2px rgba(15, 27, 45, 0.04);
+  --sombra-flota: 0 12px 32px rgba(11, 45, 85, 0.18);
+
+  --alto-control: 48px;
+  --ancho-nav: 240px;
+  --transicion: 160ms ease;
 }
 
-@media screen and (min-width: 600px) {
-  body {
-    font-size: 1rem;
-  }
+/* ============ 2. BASE ======================================= */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--fuente);
+  font-size: var(--texto-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-height: 100dvh;
 }
+
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; }
+ul { list-style: none; }
+a { color: var(--color-brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { color: var(--color-brand-dark); line-height: 1.2; }
+h1 { font-size: var(--texto-xl); font-weight: 700; }
+h2 { font-size: var(--texto-lg); font-weight: 500; }
+
+
+[hidden] { display: none !important; }
+
+
+:focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; border-radius: var(--radio-sm); }
+
+.sr-solo {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.icono { flex: none; }
+
+[data-icono] { flex: none; }

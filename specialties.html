@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Especialidades · MedPortal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard_style.css">
+  <link rel="stylesheet" href="specialties_style.css">
+
+  <script src="iconos.js"></script>
+  <script src="storage.js"></script>
+  <script src="ui.js"></script>
+  <script src="sesion.js"></script>
+  <script src="menu.js"></script>
+    <script src="paginacion.js"></script>
+    <script src="specialties.js"></script>
+</head>
+    <body>
+        <div class="dashboard-container">
+        <header>
+            <span class="marca">MedPortal</span>
+            <div>
+                <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false"
+                    aria-controls="sidebar" data-icono="menu" data-tam="24"></button>
+                <button id="logout" class="boton boton--neutro" type="button">
+                <span data-icono="log-out" data-tam="18"></span> Cerrar Sesión
+                </button>
+            </div>
+        </header>
+
+        <nav id="sidebar" aria-label="Menú principal">
+        <div class="nav__marca">
+            <span class="nav__logo" data-icono="briefcase-medical" data-tam="22"></span>
+            <span>
+                <strong class="nav__nombre">MedPortal</strong>
+                <span class="nav__bajada">Gestión Hospitalaria</span>
+            </span>
+        </div>
+        <ul>
+          <li><a href="dashboard.html"><span data-icono="layout-dashboard"></span> Panel de Control</a></li>
+          <li><a href="specialties.html" class="activo"><span data-icono="shapes"></span> Especialidades</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <div class="encabezado">
+          <div class="encabezado__texto">
+            <h1>Directorio de Especialidades</h1>
+            <p class="encabezado__bajada">Administre las categorías médicas disponibles para la asignación de turnos.</p>
+          </div>
+          <div class="encabezado__acciones">
+            <a class="boton" href="specialty.html"><span data-icono="plus"></span> Nueva Especialidad</a>
+          </div>
+        </div>
+
+        <form class="buscador" id="form-buscar" role="search" novalidate>
+          <label class="sr-solo" for="buscar-nombre">Buscar especialidad por nombre</label>
+          <div class="campo__caja buscador__caja">
+            <span data-icono="search"></span>
+            <input type="text" id="buscar-nombre" placeholder="Buscar especialidad por nombre..." autocomplete="off">
+          </div>
+          <button type="submit" class="boton">Buscar</button>
+          <button type="button" class="boton boton--neutro" id="limpiar-busqueda" hidden>Limpiar</button>
+        </form>
+
+        <section class="tarjeta">
+          <div class="tabla-scroll">
+            <table class="tabla">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="specialties-table-body">
+                <!-- specialties.js carga acá las filas desde localStorage -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="vacio" id="estado-vacio" hidden>
+            <span class="vacio__icono" data-icono="inbox" data-tam="26"></span>
+            <p class="vacio__titulo" id="vacio-titulo">Todavía no hay especialidades cargadas</p>
+            <p id="vacio-texto">Cargá la primera con el botón «Nueva Especialidad».</p>
+          </div>
+
+          <div class="tarjeta__pie">
+            <span id="contador" role="status" aria-live="polite">—</span>
+            <div class="paginacion" id="paginacion"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>MedPortal &copy; 2026 · DSW · UTN FRT</footer>
+    </div>
+    </body>
+</html>

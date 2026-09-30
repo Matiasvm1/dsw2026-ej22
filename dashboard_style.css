@@ -1,150 +1,82 @@
-
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas:
+  grid-template-areas: 
     "header"
     "main"
     "footer";
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
-/* ---------- Header ------------------------------------------ */
+.dashboard-container nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: #f4f4f4;
+  left: -200px;
+}
+
+.dashboard-container nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-container nav ul li {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
 .dashboard-container header {
   grid-area: header;
+  height: 50px;
+  background-color: #333;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--esp-3);
-  height: 64px;
-  padding: 0 var(--esp-4);
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
-.dashboard-container header .marca {
-  font-size: var(--texto-lg);
-  font-weight: 700;
-  color: var(--color-brand);
-}
-.dashboard-container header div { display: flex; align-items: center; gap: var(--esp-3); }
-
-.dashboard-container header .menu {
-  display: grid;
-  place-items: center;
-  width: 44px; height: 44px;
-  border-radius: var(--radio-md);
-  color: var(--color-brand);
-}
-.dashboard-container header .menu:hover { background: var(--color-brand-soft); }
-
-/* ---------- Nav lateral (sólo el hijo directo: > nav) ------ */
-.dashboard-container > nav {
-  position: fixed;             /* en celular flota sobre el contenido */
-  top: 0;
-  bottom: 0;
-  left: calc(-1 * var(--ancho-nav) - 2px);   /* escondido a la izquierda */
-  z-index: 50;
-  width: var(--ancho-nav);
-  display: flex;
-  flex-direction: column;
-  padding: var(--esp-5) 0;
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
-  transition: left var(--transicion);
+  padding: 0 1rem;
 }
 
-.nav__marca {
+.dashboard-container header div {
   display: flex;
   align-items: center;
-  gap: var(--esp-3);
-  padding: 0 var(--esp-5) var(--esp-6);
-}
-.nav__logo {
-  display: grid; place-items: center;
-  width: 40px; height: 40px;
-  border-radius: var(--radio-md);
-  background: var(--color-brand);
-  color: var(--color-text-invert);
-}
-.nav__nombre { display: block; font-size: var(--texto-lg); font-weight: 700; color: var(--color-brand); line-height: 1.1; }
-.nav__bajada { font-size: var(--texto-xs); color: var(--color-text-muted); }
-
-.dashboard-container > nav ul { display: flex; flex-direction: column; gap: var(--esp-1); padding: 0 var(--esp-3); }
-
-.dashboard-container > nav a {
-  display: flex;
-  align-items: center;
-  gap: var(--esp-3);
-  height: 44px;
-  padding: 0 var(--esp-3);
-  border-radius: var(--radio-md);
-  border-left: 3px solid transparent;
-  color: var(--color-text-soft);
-  font-size: var(--texto-sm);
-  font-weight: 500;
-}
-.dashboard-container > nav a:hover { background: var(--color-bg); text-decoration: none; }
-
-/* Ítem de la página actual: se marca en el HTML con class="activo". */
-.dashboard-container > nav a.activo {
-  background: var(--color-bg);
-  border-left-color: var(--color-accent);
-  color: var(--color-accent);
-  font-weight: 700;
+  gap: 1rem;
 }
 
-/* ---------- Main -------------------------------------------- */
 .dashboard-container main {
   grid-area: main;
-  display: flex;
-  flex-direction: column;
-  gap: var(--esp-6);
-  padding: var(--esp-5) var(--esp-4);
-  min-width: 0;                /* deja que la tabla scrollee adentro */
+  padding: 1rem;
   overflow-y: auto;
 }
 
-.encabezado { display: flex; flex-wrap: wrap; gap: var(--esp-4); align-items: flex-end; justify-content: space-between; }
-.encabezado__texto { flex: 1 1 320px; }
-.encabezado__bajada { margin-top: var(--esp-2); color: var(--color-text-soft); }
-.encabezado__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-3); }
-
-/* Fila de "todavía no hay datos" de la tabla del panel. */
-.tabla__sin-datos { padding: var(--esp-6) var(--esp-5); text-align: center; color: var(--color-text-muted); }
-
-/* ---------- Footer ------------------------------------------ */
 .dashboard-container footer {
   grid-area: footer;
-  padding: var(--esp-4);
-  border-top: 1px solid var(--color-border);
-  font-size: var(--texto-xs);
-  color: var(--color-text-muted);
+  background-color: #333;
+  color: white;
   text-align: center;
+  padding: 1rem;
 }
 
-/* ---------- Escritorio (>= 600px, igual que la cátedra) ------ */
 @media screen and (min-width: 600px) {
   .dashboard-container {
-    grid-template-columns: var(--ancho-nav) 1fr;
-    grid-template-areas:
-      "nav header"
+    grid-template-columns: 200px 1fr;
+    grid-template-areas: 
+      "header header"
       "nav main"
-      "nav footer";
+      "footer footer";
   }
 
-  .dashboard-container > nav {
+  .dashboard-container nav {
     grid-area: nav;
-    position: sticky;
-    top: 0;
+    position: static;
     left: 0;
-    height: 100dvh;
+    height: auto;
   }
 
-  /* En escritorio la marca ya está en el nav y el botón ☰ no tiene sentido. */
-  .dashboard-container header .marca,
-  .dashboard-container header div .menu { display: none; }
-  .dashboard-container header { justify-content: flex-end; }
-
-  .dashboard-container main { padding: var(--esp-7) var(--esp-6); }
+  .dashboard-container header div .menu {
+    display: none;
+  }
 }

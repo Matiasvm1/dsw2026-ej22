@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva especialidad · MedPortal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard_style.css">
+  <link rel="stylesheet" href="specialties_style.css">
+
+  <script src="iconos.js"></script>
+  <script src="storage.js"></script>
+  <script src="ui.js"></script>
+  <script src="sesion.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <header>
+      <span class="marca">MedPortal</span>
+      <div>
+        <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="sidebar" data-icono="menu" data-tam="24"></button>
+        <button id="logout" class="boton boton--neutro" type="button">
+          <span data-icono="log-out" data-tam="18"></span> Cerrar Sesión
+        </button>
+      </div>
+    </header>
+
+    <nav id="sidebar" aria-slabel="Menú principal">
+      <div class="nav__marca">
+        <span class="nav__logo" data-icono="briefcase-medical" data-tam="22"></span>
+        <span>
+          <strong class="nav__nombre">MedPortal</strong>
+          <span class="nav__bajada">Gestión Hospitalaria</span>
+        </span>
+      </div>
+      <ul>
+        <li><a href="dashboard.html"><span data-icono="layout-dashboard"></span> Panel de Control</a></li>
+        <li><a href="specialties.html" class="activo"><span data-icono="shapes"></span> Especialidades</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <nav class="migas" aria-label="Ruta">
+        <a href="specialties.html">Especialidades</a>
+        <span data-icono="chevron-right" data-tam="16"></span>
+        <span>Agregar Nueva Especialidad</span>
+      </nav>
+
+      <div class="encabezado">
+        <div class="encabezado__texto">
+          <h1>Registrar Nueva Especialidad</h1>
+          <p class="encabezado__bajada">Complete la información de la especialidad médica para darla de alta en el sistema.</p>
+        </div>
+      </div>
+
+      <section class="tarjeta tarjeta--padding">
+        <!-- novalidate: las validaciones las hace JavaScript (lo pide el ej. #24).
+             Por eso tampoco hay maxlength: si el navegador corta en 15, el
+             mensaje de error de JS nunca aparece y la cátedra no lo puede ver. -->
+        <form id="form-especialidad" class="form-especialidad" novalidate>
+
+          <div class="campo" id="campo-name">
+            <label class="campo__label" for="name">
+              Nombre de la Especialidad <span class="obligatorio" aria-hidden="true">*</span>
+            </label>
+            <div class="campo__caja">
+              <input type="text" id="name" name="name" placeholder="Ej. Cardiología" autocomplete="off">
+            </div>
+            <p class="campo__ayuda"><span id="contador-name">0</span>/15 caracteres</p>
+            <p class="campo__error" id="error-name" role="alert"></p>
+          </div>
+
+          <div class="campo" id="campo-description">
+            <label class="campo__label" for="description">
+              Descripción <span class="obligatorio" aria-hidden="true">*</span>
+            </label>
+            <div class="campo__caja campo__caja--area">
+              <textarea id="description" name="description"
+                        placeholder="Detalle el alcance de la especialidad y los procedimientos principales..."></textarea>
+            </div>
+            <p class="campo__ayuda"><span id="contador-description">0</span>/100 caracteres</p>
+            <p class="campo__error" id="error-description" role="alert"></p>
+          </div>
+
+          <div class="campo">
+            <label class="campo__label" for="active">Estado inicial</label>
+            <div class="campo__caja">
+              <select id="active" name="active">
+                <option value="true">Activa — disponible para programación</option>
+                <option value="false">Inactiva — no se ofrece al paciente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-especialidad__acciones">
+            <a class="boton boton--neutro" href="specialties.html">Cancelar</a>
+            <button type="submit" class="boton"><span data-icono="save"></span> Guardar Especialidad</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>MedPortal &copy; 2026 · DSW · UTN FRT</footer>
+  </div>
+</body>
+</html>

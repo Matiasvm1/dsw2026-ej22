@@ -3,13 +3,17 @@ protegerPagina();
 
 document.addEventListener('DOMContentLoaded', () => {
   const cuerpo = document.getElementById('specialties-table-body'); 
-  
+  const formBuscar = document.getElementById('form-buscar');
+  const inputBuscar = document.getElementById('buscar-nombre');
+  const botonLimpiar = document.getElementById('limpiar-busqueda');
   const vacio = document.getElementById('estado-vacio');
   const tituloVacio = document.getElementById('vacio-titulo');
   const textoVacio = document.getElementById('vacio-texto');
   const contador = document.getElementById('contador');
   /* Estado de la pantalla. */
   let resultados = [];          // todas o las filtradas
+  let filtroAplicado = '';
+
 
   function fila(especialidad) {
     const estado = especialidad.active
@@ -43,7 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (totalGuardadas === 0) {
             tituloVacio.textContent = 'Todavía no hay especialidades cargadas';
             textoVacio.textContent = 'Cargá la primera con el botón «Nueva Especialidad».';
-
+        } else {
+      tituloVacio.textContent = 'No encontramos especialidades con ese nombre';
+      textoVacio.textContent = `Ninguna contiene «${filtroAplicado}». Probá con otra palabra.`;
         }
 
     // Contador: "Mostrando 6–10 de 12 especialidades"
@@ -51,7 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         contador.textContent = resultados.length === 0
             ? `Mostrando 0 de ${totalGuardadas} especialidades`
             : `Mostrando ${desde}–${hasta} de ${resultados.length} especialidades`;
-    }
+        
+        botonLimpiar.hidden = filtroAplicado === '';
+        }
 
 
     /** Cambia la lista que se muestra. */
@@ -60,6 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
         resultados = lista.slice().sort((a, b) => a.name.localeCompare(b.name, 'es'));
         pintar();
     }
+
+    formBuscar.addEventListener('submit', (evento) => {
+        evento.preventDefault();             // si no, el form recarga la página
+        filtroAplicado = inputBuscar.value.trim();
+
+        mostrar(filtroAplicado ? buscarEspecialidadesPorNombre(filtroAplicado) : obtenerEspecialidades());
+    });
+
+    botonLimpiar.addEventListener('click', () => {
+        inputBuscar.value = '';
+        filtroAplicado = '';
+        mostrar(obtenerEspecialidades());
+        inputBuscar.focus();
+    });
 
     /* ---------- 4. Primer pintado: todo lo que hay guardado ------ */
     mostrar(obtenerEspecialidades());

@@ -1,42 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listado de Productos</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="dashboard_style.css">
-  <script src="dashboard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel - MedPortal</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard_style.css">
+    <script src="iconos.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
+    <script src="sesion.js"></script>
+    <script src="menu.js"></script>
+    <script src="dashboard.js"></script>
 </head>
 <body>
-  <div class="dashboard-container">
-    <header>
-      <span>Gestor de turnos</span>
-      <div>
-        <button class="menu">&#9776;</button>
-        <button id="logout">Cerrar Sesión</button>
-      </div>
-    </header>
-    <nav id="sidebar">
-      <ul>
-        <li><a href="#">Panel</a></li>
-      </ul>
-    </nav>
-    <main>
-      <h1>Pacientes</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Paciente</th>
-          </tr>
-        </thead>
-        <tbody id="product-table-body">
-          <!-- Los productos se cargarán aquí dinámicamente -->
-        </tbody>
-      </table>
-    </main>
-    <footer>Mi Aplicación &copy; 2024</footer>
-  </div>
+    <div class="dashboard-container">
+
+        <header class="dashboard-header">
+            <div class="header-logo">
+                <span class="escudo"></span>
+                <span>MedPortal</span>
+            </div>
+            <div>
+                <button class="menu-btn" aria-expanded="false" aria-label="Abrir menú">
+                    <span data-icono="menu"></span>
+                </button>
+                <button id="logout" class="btn btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav id="sidebar">
+            <ul>
+                <li><a href="dashboard.html" class="activo">Panel</a></li>
+                <li><a href="specialties.html">Especialidades</a></li>
+            </ul>
+        </nav>
+
+      
+        <main>
+            <div class="header-seccion">
+                <div>
+                    <h1 style="color: var(--color-brand-dark); font-size: 32px; font-weight: normal;">Vista general de gestión</h1>
+                    <p style="color: gray;">Resumen del estado de las especialidades</p>
+                </div>
+                <div class="acciones">
+                    <a href="specialty.html" class="btn btn-solido" style="background-color: var(--color-brand); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">Agregar Nueva Especialidad</a>
+                    <a href="specialties.html" class="btn btn-borde" style="border: 1px solid var(--color-brand); color: var(--color-brand); padding: 10px 20px; border-radius: 6px; text-decoration: none;">Ver Especialidades</a>
+                </div>
+            </div>
+
+            <section class="metricas" style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px;">
+                <div class="card" style="border-left: 4px solid var(--color-brand); padding: 16px; flex: 1; border-radius: 10px; border: 1px solid var(--color-border);">
+                    <h3>Total</h3>
+                    <p class="numero" style="font-size: 40px; margin: 0;" id="total-especialidades">0</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--color-ok); padding: 16px; flex: 1; border-radius: 10px; border: 1px solid var(--color-border);">
+                    <h3>Activas</h3>
+                    <p class="numero" style="font-size: 40px; margin: 0;" id="activas-especialidades">0</p>
+                </div>
+                <div class="card" style="border-left: 4px solid gray; padding: 16px; flex: 1; border-radius: 10px; border: 1px solid var(--color-border);">
+                    <h3>Inactivas</h3>
+                    <p class="numero" style="font-size: 40px; margin: 0;" id="inactivas-especialidades">0</p>
+                </div>
+            </section>
+
+            <section class="tabla-resumen" style="margin-top: 32px;">
+                <h2 style="font-size: 20px; color: var(--color-brand-dark); margin-bottom: 16px;">Últimas especialidades cargadas</h2>
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid var(--color-border);">
+                    <thead style="background-color: var(--color-surface-alt);">
+                        <tr>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--color-border);">Nombre</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--color-border);">Descripción</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--color-border);">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-ultimas">
+                        <tr><td colspan="3" style="padding: 12px; text-align: center;">No hay especialidades cargadas</td></tr>
+                    </tbody>
+                    <tfoot style="background-color: var(--color-surface-alt);">
+                        <tr>
+                            <td colspan="3" style="padding: 12px; border-top: 1px solid var(--color-border);" id="tabla-pie">Mostrando 0 de 0 especialidades</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

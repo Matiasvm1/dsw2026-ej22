@@ -50,5 +50,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (errores.name) { inputNombre.focus(); return; }
     if (errores.description) { inputDescripcion.focus(); return; }
-    });
+    
+    
+    const guardada = agregarEspecialidad(especialidad);     // ej. #25
+    console.log('Guardada en localStorage con id', guardada.id);
+
+    avisarEnLaSiguientePagina(`Especialidad «${guardada.name}» creada`);
+    window.location.href = 'specialties.html';
+  });
+
+
+  /* ---------- 3. Contadores y limpieza de errores ------------- */
+  function actualizarContador(input, idContador, maximo) {
+    const contador = document.getElementById(idContador);
+    const largo = input.value.trim().length;
+    contador.textContent = largo;
+    contador.parentElement.classList.toggle('campo__ayuda--excedido', largo > maximo);
+  }
+
+  inputNombre.addEventListener('input', () => {
+    actualizarContador(inputNombre, 'contador-name', MAX_NOMBRE);
+    marcarError('name', '');
+  });
+
+  inputDescripcion.addEventListener('input', () => {
+    actualizarContador(inputDescripcion, 'contador-description', MAX_DESCRIPCION);
+    marcarError('description', '');
+  });
+  
 });

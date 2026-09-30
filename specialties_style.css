@@ -1,4 +1,3 @@
-/* MOBILE FIRST: todo lo de arriba es para celular. */
 
 .buscador {
   display: flex;
@@ -10,31 +9,10 @@
 .buscador .boton { flex: 1; }
 
 /* ---------- Tabla -------------------------------------------- */
-
+/* En celular la tabla queda apretada: la descripción se esconde. */
 .tabla th:nth-child(2),
 .tabla td:nth-child(2) { display: none; }
 .tabla td:nth-child(3) { width: 1%; white-space: nowrap; }
-
-/* ---------- Migas de pan (formulario) ------------------------ */
-.migas { display: flex; align-items: center; gap: var(--esp-2); font-size: var(--texto-sm); color: var(--color-text-muted); }
-.migas a { font-weight: 600; }
-
-/* ---------- Formulario (ej. #24) ----------------------------- */
-.form-especialidad { display: flex; flex-direction: column; gap: var(--esp-5); max-width: 720px; }
-
-/* Contador que se pone rojo cuando se pasa del límite. */
-.campo__ayuda--excedido { color: var(--color-bad); font-weight: 600; }
-
-/* Botones separados por una línea. En celular van apilados y a lo
-   ancho, con "Guardar" arriba (column-reverse). */
-.form-especialidad__acciones {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: var(--esp-3);
-  padding-top: var(--esp-5);
-  border-top: 1px solid var(--color-border);
-}
-.form-especialidad__acciones .boton { width: 100%; }
 
 /* ---------- Escritorio (>= 600px, mismo corte que la cátedra) - */
 @media screen and (min-width: 600px) {
@@ -45,7 +23,5 @@
   .tabla th:nth-child(2),
   .tabla td:nth-child(2) { display: table-cell; max-width: 52ch; }
 
-  /* Como el mockup: botones en fila, abajo a la derecha. */
-  .form-especialidad__acciones { flex-direction: row; justify-content: flex-end; }
-  .form-especialidad__acciones .boton { width: auto; }
+
 }

@@ -1,47 +1,81 @@
+/* ============================================================
+   dashboard.js · Panel de administración
+   DUEÑO: Nicolás · rama feature/panel-y-menu
+   ------------------------------------------------------------
+   El "Cerrar Sesión" que tenía este archivo en la cátedra ahora lo
+   engancha sesion.js para todas las páginas privadas.
+
+   Este archivo:
+     1. Protege la página (sin sesión, vuelve al login).
+     2. Cuenta total, activas e inactivas desde localStorage.
+     3. Muestra las últimas 5 especialidades cargadas.
+
+   Usa funciones de la base:
+     protegerPagina()          sesion.js
+     obtenerEspecialidades()   storage.js
+     escaparHTML()             ui.js
+     pintarIconos()            iconos.js
+   ============================================================ */
+
+protegerPagina();
+
 document.addEventListener('DOMContentLoaded', () => {
-    const especialidades = obtenerEspecialidades();
+  const especialidades = obtenerEspecialidades();
 
-    const activas = especialidades.filter(e => e.active).length;
-    const inactivas = especialidades.length - activas;
+  /* ---------- 1. Métricas ------------------------------------- */
+  const activas = especialidades.filter((e) => e.active).length;
+  const inactivas = especialidades.length - activas;
 
-    document.getElementById('total-especialidades').textContent = especialidades.length;
-    document.getElementById('activas-especialidades').textContent = activas;
-    document.getElementById('inactivas-especialidades').textContent = inactivas;
+  document.getElementById('metrica-total').textContent = especialidades.length;
+  document.getElementById('metrica-activas').textContent = activas;
+  document.getElementById('metrica-inactivas').textContent = inactivas;
 
-    const tbody = document.getElementById('tabla-ultimas');
-    const pie = document.getElementById('tabla-pie');
+  /* ---------- 2. Últimas 5 ------------------------------------ */
+  // Las más nuevas primero. slice() hace una copia: sort() modifica el
+  // array sobre el que se llama y no queremos tocar el original.
+  const ultimas = especialidades
+    .slice()
+    .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)))
+    .slice(0, 5);
 
-    if (especialidades.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="padding: 12px; text-align: center;">No hay especialidades cargadas</td></tr>';
-        pie.textContent = 'Mostrando 0 de 0 especialidades';
-        return;
-    }
+  document.getElementById('metrica-ultima').textContent = ultimas.length
+    ? 'Última alta: ' + ultimas[0].name
+    : 'Todavía no hay altas';
 
-    const ultimas = especialidades.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
+  /** Una fila de la tabla resumen. */
+  function fila(especialidad) {
+    const estado = especialidad.active
+      ? '<span class="pill pill--activa">Activa</span>'
+      : '<span class="pill pill--inactiva">Inactiva</span>';
 
-    tbody.innerHTML = '';
+    return `
+      <tr>
+        <td>
+          <div class="tabla__nombre">
+            <span class="icono-caja" data-icono="shapes"></span>
+            ${escaparHTML(especialidad.name)}
+          </div>
+        </td>
+        <td>${escaparHTML(especialidad.description)}</td>
+        <td>${estado}</td>
+      </tr>`;
+  }
 
-    ultimas.forEach(esp => {
-        const estadoClaseBg = esp.active ? 'var(--color-ok-bg)' : '#e5e7eb';
-        const estadoClaseColor = esp.active ? 'var(--color-ok)' : '#374151';
-        const estadoTexto = esp.active ? 'Activa' : 'Inactiva';
+  const cuerpo = document.getElementById('ultimas-table-body');
 
-        tbody.innerHTML += `
-            <tr>
-                <td style="padding: 12px; border-bottom: 1px solid var(--color-border); font-weight: bold;">
-                    ${escaparHTML(esp.name)}
-                </td>
-                <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">
-                    ${escaparHTML(esp.description)}
-                </td>
-                <td style="padding: 12px; border-bottom: 1px solid var(--color-border);">
-                    <span style="background-color: ${estadoClaseBg}; color: ${estadoClaseColor}; padding: 4px 12px; border-radius: 999px; font-size: 14px;">
-                        ${estadoTexto}
-                    </span>
-                </td>
-            </tr>
-        `;
-    });
+  if (ultimas.length === 0) {
+    cuerpo.innerHTML = `
+      <tr>
+        <td colspan="3" class="tabla__sin-datos">
+          Todavía no hay especialidades cargadas.
+          <a href="specialty.html">Cargar la primera</a>
+        </td>
+      </tr>`;
+  } else {
+    cuerpo.innerHTML = ultimas.map(fila).join('');
+    pintarIconos(cuerpo);          // las filas nuevas traen data-icono
+  }
 
-    pie.textContent = `Mostrando ${ultimas.length} de ${especialidades.length} especialidades`;
+  document.getElementById('pie-panel').textContent =
+    `Mostrando ${ultimas.length} de ${especialidades.length} especialidades`;
 });

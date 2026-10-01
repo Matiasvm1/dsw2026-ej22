@@ -1,3 +1,25 @@
+/* ============================================================
+   MedPortal · Layout de las páginas privadas
+   [BASE] + la parte del ej. #22 (nav.open) es de NICOLÁS
+   ------------------------------------------------------------
+   Mantiene la estructura que dejó la cátedra en el ej. #22
+   (.dashboard-container con header / nav / main / footer), pero con
+   la estética del TPI. Lo usan dashboard.html, specialties.html y
+   specialty.html.
+
+   MOBILE FIRST: primero el layout de celular; el @media del final
+   (min-width: 600px) arma las dos columnas de escritorio.
+
+   Celular (< 600px)           Escritorio (>= 600px)
+   +-------------------+       +--------+------------------+
+   | header  [☰] [x]   |       |        | header           |
+   +-------------------+       |  nav   +------------------+
+   | main              |       |        | main             |
+   +-------------------+       |        +------------------+
+   | footer            |       |        | footer           |
+   +-------------------+       +--------+------------------+
+   nav escondido a la izquierda   nav fijo, alto completo (como el mockup)
+   ============================================================ */
 
 .dashboard-container {
   display: grid;
@@ -52,6 +74,13 @@
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
   transition: left var(--transicion);
+}
+
+/* Ej. #22: menu.js le agrega .open al nav y el menú entra desde la
+   izquierda (la transición de `left` está arriba). */
+.dashboard-container > nav.open {
+  left: 0;
+  box-shadow: var(--sombra-flota);
 }
 
 .nav__marca {

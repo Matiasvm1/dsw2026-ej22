@@ -1,42 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listado de Productos</title>
+  <title>Panel de administración · MedPortal</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="dashboard_style.css">
+
+  <script src="iconos.js"></script>
+  <script src="storage.js"></script>
+  <script src="ui.js"></script>
+  <script src="sesion.js"></script>
+  <script src="menu.js"></script>
   <script src="dashboard.js"></script>
 </head>
+
+<!-- ============================================================
+     DUEÑO: Nicolás · rama feature/panel-y-menu
+     Mockup del TPI: "Vista General de Gestión".
+     Header, nav, main y footer son los del ej. #22 de la cátedra.
+     specialties.html y specialty.html copian este mismo esqueleto.
+     ============================================================ -->
 <body>
   <div class="dashboard-container">
+
     <header>
-      <span>Gestor de turnos</span>
+      <span class="marca">MedPortal</span>
       <div>
-        <button class="menu">&#9776;</button>
-        <button id="logout">Cerrar Sesión</button>
+        <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="sidebar" data-icono="menu" data-tam="24"></button>
+        <button id="logout" class="boton boton--neutro" type="button">
+          <span data-icono="log-out" data-tam="18"></span> Cerrar Sesión
+        </button>
       </div>
     </header>
-    <nav id="sidebar">
+
+    <nav id="sidebar" aria-label="Menú principal">
+      <div class="nav__marca">
+        <span class="nav__logo" data-icono="briefcase-medical" data-tam="22"></span>
+        <span>
+          <strong class="nav__nombre">MedPortal</strong>
+          <span class="nav__bajada">Gestión Hospitalaria</span>
+        </span>
+      </div>
       <ul>
-        <li><a href="#">Panel</a></li>
+        <li><a href="dashboard.html" class="activo"><span data-icono="layout-dashboard"></span> Panel de Control</a></li>
+        <li><a href="specialties.html"><span data-icono="shapes"></span> Especialidades</a></li>
       </ul>
     </nav>
+
     <main>
-      <h1>Pacientes</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Paciente</th>
-          </tr>
-        </thead>
-        <tbody id="product-table-body">
-          <!-- Los productos se cargarán aquí dinámicamente -->
-        </tbody>
-      </table>
+      <div class="encabezado">
+        <div class="encabezado__texto">
+          <h1>Vista General de Gestión</h1>
+          <p class="encabezado__bajada">Configure las especialidades del departamento y supervise el catálogo.</p>
+        </div>
+        <div class="encabezado__acciones">
+          <a class="boton" href="specialty.html"><span data-icono="plus"></span> Agregar Nueva Especialidad</a>
+          <a class="boton boton--secundario" href="specialties.html"><span data-icono="shapes"></span> Ver Especialidades</a>
+        </div>
+      </div>
+
+      <!-- Métricas: las completa dashboard.js leyendo localStorage -->
+      <section class="grilla-metricas" aria-label="Resumen del catálogo">
+        <article class="tarjeta metrica">
+          <div class="metrica__fila">
+            <span class="metrica__icono" data-icono="list" data-tam="22"></span>
+          </div>
+          <p class="metrica__rotulo">Total de especialidades</p>
+          <p class="metrica__valor" id="metrica-total">—</p>
+          <p class="metrica__nota" id="metrica-ultima">&nbsp;</p>
+        </article>
+        <article class="tarjeta metrica">
+          <div class="metrica__fila">
+            <span class="metrica__icono" data-icono="badge-check" data-tam="22"></span>
+            <span class="pill pill--activa">Disponibles</span>
+          </div>
+          <p class="metrica__rotulo">Activas</p>
+          <p class="metrica__valor" id="metrica-activas">—</p>
+          <p class="metrica__nota">Se pueden asignar a un turno.</p>
+        </article>
+        <article class="tarjeta metrica">
+          <div class="metrica__fila">
+            <span class="metrica__icono" data-icono="clock" data-tam="22"></span>
+            <span class="pill pill--inactiva">Sin actividad</span>
+          </div>
+          <p class="metrica__rotulo">Inactivas</p>
+          <p class="metrica__valor" id="metrica-inactivas">—</p>
+          <p class="metrica__nota">No se ofrecen al paciente.</p>
+        </article>
+      </section>
+
+      <section class="tarjeta">
+        <div class="tarjeta__cabecera">
+          <h2 class="tarjeta__titulo">Últimas especialidades cargadas</h2>
+          <a class="boton boton--neutro" href="specialties.html">Ver todas</a>
+        </div>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="ultimas-table-body">
+              <!-- dashboard.js carga acá las últimas 5 -->
+            </tbody>
+          </table>
+        </div>
+        <div class="tarjeta__pie" id="pie-panel">—</div>
+      </section>
     </main>
-    <footer>Mi Aplicación &copy; 2024</footer>
+
+    <footer>MedPortal &copy; 2026 · DSW · UTN FRT</footer>
   </div>
 </body>
 </html>
